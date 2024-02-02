@@ -21,7 +21,9 @@ export function OpticApp() {
       <OpticCanvas style={{
         height: '100px',
         width: '100%',
-      }}/>
+      }}
+      lens={[{position: 0.5, id: 'hi'}]}
+      />
     </div>
   );
 }

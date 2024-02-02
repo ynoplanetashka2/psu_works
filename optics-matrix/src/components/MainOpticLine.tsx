@@ -1,13 +1,14 @@
 import React from "react";
-import { Lens } from "./Lens";
 
-type Styles = React.HTMLAttributes<HTMLDivElement>['style'];
-type Props = { style?: Styles; onClick?: (ratio: number) => void; };
+type Styles = React.HTMLAttributes<HTMLDivElement>["style"];
+type Props = { style?: Styles; onClick?: (ratio: number) => void };
 
-function getRelativeMouseXPosition(event: React.MouseEvent<HTMLDivElement>): number {
+function getRelativeMouseXPosition(
+  event: React.MouseEvent<HTMLDivElement>
+): number {
   const targetElement = event.currentTarget;
   if (!targetElement) {
-    throw new Error('no event target');
+    throw new Error("no event target");
   }
   const rect = targetElement.getBoundingClientRect();
   const width = rect.right - rect.left;
@@ -27,15 +28,6 @@ export function MainOpticLine({ style = {}, onClick }: Props) {
         ...style,
       }}
       onClick={handleClick}
-    >
-      <div>
-        <Lens
-            style={{
-                width: '20px',
-                height: '200px',
-            }}
-        />
-      </div>
-    </div>
+    />
   );
 }
