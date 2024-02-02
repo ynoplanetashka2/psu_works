@@ -1,0 +1,47 @@
+epsilon:
+  red: 1.5
+  yellow: 3.5
+  green: 5.5
+  blue: 7.5
+scale_factors:
+  img44: 1
+  img43: 1
+points:
+  img44:
+    blue:
+      - x: 183.5
+        y: 23
+    green:
+      - x: 345
+        y: 8.5
+      - x: 223.5
+        y: 35.5
+    yellow:
+      - x: 528
+        y: 12.5
+      - x: 318
+        y: 52
+    red:
+      - x: 916.5
+        y: 31
+      - x: 524
+        y: 73
+  img43:
+    blue:
+      - x: 153
+        y: 21
+    green:
+      - x: 289
+        y: 7
+      - x: 203
+        y: 29.5
+    yellow:
+      - x: 452
+        y: 15
+      - x: 287.5
+        y: 42.5
+    red:
+      - x: 810
+        y: 37
+      - x: 446
+        y: 74
