@@ -1,3 +1,4 @@
+import { BeamVector } from "../optics-matrix-model/BeamVector";
 import { Lens } from "./Lens";
 import { MainOpticLine } from "./MainOpticLine";
 
@@ -8,6 +9,7 @@ type LensInfo = {
 type Props = {
   style?: React.HTMLAttributes<HTMLDivElement>["style"];
   lenses: ReadonlyArray<LensInfo>;
+  beamVector: BeamVector;
   onLensClick?: (lensId: string) => void;
   onLineClick?: (position: number) => void;
 };
@@ -15,6 +17,7 @@ type Props = {
 export function OpticCanvas({
   style = {},
   lenses,
+  beamVector: [beamVectorHeight, beamVectorAngle],
   onLensClick,
   onLineClick,
 }: Props) {
@@ -26,6 +29,15 @@ export function OpticCanvas({
         ...style,
       }}
     >
+      <div style={{
+        position: 'absolute',
+        bottom: `calc(${(beamVectorHeight + 1) * 50}% - 30px/2)`,
+        left: '0',
+        width: '30px',
+        height: '30px',
+        background: 'red',
+        zIndex: 2,
+      }}/>
       {lenses.map(({ position, id }) => (
         <Lens
           style={{

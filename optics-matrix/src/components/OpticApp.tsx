@@ -5,10 +5,12 @@ import { useOpticApp } from "../hooks/useOpticApp";
 export function OpticApp() {
   const {
     handleLensClick,
+    lensInConfig,
     handleMainOpticLineClick,
     lenses,
     setAppState,
     appState,
+    beamVector
   } = useOpticApp();
   return (
     <div
@@ -18,7 +20,8 @@ export function OpticApp() {
         background: "grey",
       }}
     >
-      state: {appState}
+      state: {appState} <br />
+      lensInConfig: {lensInConfig}
       <OpticTools
         style={{
           background: "blue",
@@ -33,6 +36,7 @@ export function OpticApp() {
           width: "100%",
         }}
         lenses={lenses}
+        beamVector={beamVector}
         onLensClick={(lensId: string) => handleLensClick(lensId)}
         onLineClick={(position: number) => handleMainOpticLineClick(position)}
       />
