@@ -1,5 +1,5 @@
 import './App.css';
-import { OpticCanvas } from "./OpticCanvas";
+import { OpticApp } from './OpticApp';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         paddingTop: "5rem",
       }}
     >
-      <OpticCanvas />
+      <OpticApp />
     </div>
   );
 }
