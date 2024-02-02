@@ -8,9 +8,16 @@ type LensInfo = {
 type Props = {
   style?: React.HTMLAttributes<HTMLDivElement>["style"];
   lens: ReadonlyArray<LensInfo>;
+  onLensClick?: (lensId: string) => void;
+  onLineClick?: (position: number) => void;
 };
 
-export function OpticCanvas({ style = {}, lens }: Props) {
+export function OpticCanvas({
+  style = {},
+  lens,
+  onLensClick,
+  onLineClick,
+}: Props) {
   return (
     <div
       style={{
@@ -27,6 +34,7 @@ export function OpticCanvas({ style = {}, lens }: Props) {
             height: "100%",
             zIndex: 2,
           }}
+          onClick={() => onLensClick && onLensClick(id)}
           key={id}
         />
       ))}
@@ -38,7 +46,7 @@ export function OpticCanvas({ style = {}, lens }: Props) {
           top: "calc((100% - 10px) / 2)",
           zIndex: 1,
         }}
-        onClick={(ratio) => void console.log(ratio)}
+        onClick={(ratio) => onLineClick && onLineClick(ratio)}
       />
     </div>
   );

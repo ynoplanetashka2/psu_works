@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { OpticCanvas } from "./OpticCanvas";
 import { OpticTools } from "./OpticTools";
+import { LensInfo } from "../optics-matrix-model/LensInfo";
 
 export function OpticApp() {
+  const [lenses, setLenses] = useState<ReadonlyArray<LensInfo>>([]);
   return (
     <div
       style={{
@@ -18,11 +21,12 @@ export function OpticApp() {
         onElementRemove={() => void console.log("remove")}
         onLensAdd={() => void console.log("add")}
       />
-      <OpticCanvas style={{
-        height: '100px',
-        width: '100%',
-      }}
-      lens={[{position: 0.5, id: 'hi'}]}
+      <OpticCanvas
+        style={{
+          height: "100px",
+          width: "100%",
+        }}
+        lens={lenses}
       />
     </div>
   );

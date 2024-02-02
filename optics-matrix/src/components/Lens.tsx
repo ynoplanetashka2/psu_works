@@ -1,7 +1,7 @@
 type Styles = React.HTMLAttributes<HTMLImageElement>["style"];
-type Props = { style?: Styles };
+type Props = { style?: Styles; onClick?: () => void };
 
-export function Lens({ style }: Props) {
+export function Lens({ style, onClick }: Props) {
   return (
     <img
       alt="lens"
@@ -10,6 +10,7 @@ export function Lens({ style }: Props) {
         width: "15px",
         ...style,
       }}
+      onClick={() => onClick && onClick()}
     />
   );
 }
