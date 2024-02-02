@@ -1,4 +1,4 @@
-import { BeamVector } from "../types/BeamVector";
+import { BeamVector } from "../optics-matrix-model/BeamVector";
 import { Lens } from "./Lens";
 import { MainOpticLine } from "./MainOpticLine";
 
