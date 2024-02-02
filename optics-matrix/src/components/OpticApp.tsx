@@ -1,11 +1,15 @@
-import { useState } from "react";
 import { OpticCanvas } from "./OpticCanvas";
 import { OpticTools } from "./OpticTools";
-import { LensInfo } from "../optics-matrix-model/LensInfo";
-import { nanoid } from "nanoid";
+import { useOpticApp } from "../hooks/useOpticApp";
 
 export function OpticApp() {
-  const [lenses, setLenses] = useState<ReadonlyArray<LensInfo>>([]);
+  const {
+    handleLensClick,
+    handleMainOpticLineClick,
+    lenses,
+    setAppState,
+    appState,
+  } = useOpticApp();
   return (
     <div
       style={{
@@ -14,13 +18,14 @@ export function OpticApp() {
         background: "grey",
       }}
     >
+      state: {appState}
       <OpticTools
         style={{
           background: "blue",
         }}
-        onElementConfig={() => void console.log("config")}
-        onElementRemove={() => void console.log("remove")}
-        onLensAdd={() => void console.log("add")}
+        onLensAdd={() => setAppState("addLens")}
+        onElementConfig={() => setAppState("configLens")}
+        onElementRemove={() => setAppState("removeLens")}
       />
       <OpticCanvas
         style={{
@@ -28,12 +33,8 @@ export function OpticApp() {
           width: "100%",
         }}
         lens={lenses}
-        onLensClick={(lensId) =>
-          setLenses((lenses) => lenses.filter(({ id }) => id !== lensId))
-        }
-        onLineClick={(position) =>
-          setLenses((lenses) => [...lenses, { position, id: nanoid() }])
-        }
+        onLensClick={(lensId: string) => handleLensClick(lensId)}
+        onLineClick={(position: number) => handleMainOpticLineClick(position)}
       />
     </div>
   );
