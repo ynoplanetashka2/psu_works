@@ -18,7 +18,7 @@ export function OpticCanvas({ style = {} }: Props) {
           width: "100%",
           height: "10px",
           position: "absolute",
-          top: "220px",
+          top: "calc((100% - 10px) / 2)",
         }}
         onClick={(ratio) => void console.log(ratio)}
       />
