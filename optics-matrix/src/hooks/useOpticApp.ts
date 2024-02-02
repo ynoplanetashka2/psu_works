@@ -1,9 +1,9 @@
 import { nanoid } from "nanoid";
 import { useState } from "react";
-import { LensInfo } from "../optics-matrix-model/LensInfo";
-import { BeamVector } from "../optics-matrix-model/BeamVector";
+import { LensInfo } from "../types/LensInfo";
+import { BeamVector } from "../types/BeamVector";
 
-type OpticAppState = "addLens" | "removeLens" | "configLens";
+export type OpticAppState = "addLens" | "removeLens" | "configLens";
 
 const DEFAULT_STATE: OpticAppState = "addLens";
 const DEFAULT_BEAM_VECTOR: BeamVector = [0, 0];
