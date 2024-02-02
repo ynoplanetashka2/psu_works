@@ -1,6 +1,7 @@
 import { OpticCanvas } from "./OpticCanvas";
 import { OpticTools } from "./OpticTools";
 import { useOpticApp } from "../hooks/useOpticApp";
+import { OpticsObjectsSettings } from "./OpticsObjectsSettings";
 
 export function OpticApp() {
   const {
@@ -20,8 +21,6 @@ export function OpticApp() {
         background: "grey",
       }}
     >
-      state: {appState} <br />
-      lensInConfig: {lensInConfig}
       <OpticTools
         style={{
           background: "blue",
@@ -30,6 +29,7 @@ export function OpticApp() {
         onElementConfig={() => setAppState("configLens")}
         onElementRemove={() => setAppState("removeLens")}
       />
+      <OpticsObjectsSettings />
       <OpticCanvas
         style={{
           height: "100px",
