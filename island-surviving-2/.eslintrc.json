@@ -1,0 +1,35 @@
+{
+    "root": true,
+    "extends": [
+        "eslint:recommended"
+    ],
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2022,
+        "sourceType": "module"
+    },
+    "rules": {
+        "semi": ["warn", "never", {
+            "beforeStatementContinuationChars": "always"
+        }],
+        "no-extra-semi": "warn",
+        "no-unexpected-multiline": "error",
+        "block-spacing": "warn",
+        "brace-style": ["warn", "stroustrup"],
+        "space-before-blocks": "warn",
+        "keyword-spacing": "warn",
+        "arrow-spacing": ["warn", {
+            "before": true,
+            "after": true
+        }],
+        "func-call-spacing": ["warn", "never"],
+        "curly": "warn",
+        "indent": ["error", "tab", {
+            "SwitchCase": 1
+        }],
+        "no-unused-vars": "warn"
+    }
+}
