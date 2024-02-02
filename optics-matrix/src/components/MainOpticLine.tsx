@@ -7,9 +7,6 @@ function getRelativeMouseXPosition(
   event: React.MouseEvent<HTMLDivElement>
 ): number {
   const targetElement = event.currentTarget;
-  if (!targetElement) {
-    throw new Error("no event target");
-  }
   const rect = targetElement.getBoundingClientRect();
   const width = rect.right - rect.left;
   const xDiff = event.clientX - rect.left;
