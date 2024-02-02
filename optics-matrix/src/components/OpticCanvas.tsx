@@ -7,14 +7,14 @@ type LensInfo = {
 };
 type Props = {
   style?: React.HTMLAttributes<HTMLDivElement>["style"];
-  lens: ReadonlyArray<LensInfo>;
+  lenses: ReadonlyArray<LensInfo>;
   onLensClick?: (lensId: string) => void;
   onLineClick?: (position: number) => void;
 };
 
 export function OpticCanvas({
   style = {},
-  lens,
+  lenses,
   onLensClick,
   onLineClick,
 }: Props) {
@@ -26,7 +26,7 @@ export function OpticCanvas({
         ...style,
       }}
     >
-      {lens.map(({ position, id }) => (
+      {lenses.map(({ position, id }) => (
         <Lens
           style={{
             position: "absolute",

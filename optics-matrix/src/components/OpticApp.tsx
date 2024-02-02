@@ -32,7 +32,7 @@ export function OpticApp() {
           height: "100px",
           width: "100%",
         }}
-        lens={lenses}
+        lenses={lenses}
         onLensClick={(lensId: string) => handleLensClick(lensId)}
         onLineClick={(position: number) => handleMainOpticLineClick(position)}
       />
