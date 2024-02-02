@@ -30,8 +30,9 @@ export function OpticCanvas({
         <Lens
           style={{
             position: "absolute",
-            left: `${position * 100}%`,
+            left: `calc(${position * 100}% - 15px / 2)`,
             height: "100%",
+            width: "15px",
             zIndex: 2,
           }}
           onClick={() => onLensClick && onLensClick(id)}

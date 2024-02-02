@@ -6,10 +6,7 @@ export function Lens({ style, onClick }: Props) {
     <img
       alt="lens"
       src="./lens.png"
-      style={{
-        width: "15px",
-        ...style,
-      }}
+      style={style}
       onClick={() => onClick && onClick()}
     />
   );
