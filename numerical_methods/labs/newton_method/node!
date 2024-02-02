@@ -1,0 +1,27 @@
+function getPrime(func) {
+	return (point, delta) => (func(point + delta) - func(point)) / delta;
+}
+
+const step = (curve, curveP, x) => x - curve / curveP;
+function getRoot(curve, curve2P, startValue, delta, errorRange) {
+	let previousValue = startValue;
+	let currentValue = startValue + delta;
+
+	const curveP = getPrime(curve);
+
+	while (Math.abs(curve(currentValue)) > errorRange) {
+		if (curve(currentValue) * curve2P(currentValue) < 0) throw new Error(`invalid function input`);
+		console.log(currentValue, curve(currentValue));
+
+		const delta_ = currentValue - previousValue;
+		previousValue = currentValue;
+		currentValue = step(curve(currentValue), curveP(currentValue, delta), currentValue);
+	}
+
+	return currentValue;
+}
+
+const curve = (x) => 1 - 1 / x;
+const curve2P = (x) => -2 / (x * x * x);
+
+console.log(getRoot(curve, curve2P, 1/2, 1e-3, 1e-6));

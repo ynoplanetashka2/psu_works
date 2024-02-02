@@ -1,0 +1,39 @@
+import cv2 as cv
+import numpy as np
+import random as rand
+import matplotlib.pyplot as plt
+from get_samples import get_samples
+
+def rand_sample(distr, sampleSize):
+    sample = np.empty(sampleSize)
+    for index in range(sampleSize):
+        randIndex = rand.randrange(sampleSize)
+        sample[index] = distr[randIndex]
+    return sample
+
+def increase_sample(sample, rand_samples_count, rand_sample_size):
+    result_size = sample.size + rand_samples_counnt * rand_sample_size
+    result = np.empty(result_size)
+    result[0:sample.size] = np.copy(sample)
+    for insert_index in range(sample.size, result_size, rand_sample_size):
+        _rand_sample = rand_sample(sample, rand_sample_size)
+        result[insert_index:(insert_index + rand_sample_size)] = _rand_sample
+    return result
+
+def plot_hist(jump_rest, jump_act, sit_rest, sit_act, lazy, bins):
+    _, _plt = plt.subplots()
+    _plt.hist(jump_rest, bins=8, alpha=.5, label='jump rest')
+    _plt.hist(jump_act, bins=8, alpha=.5, label='jump act')
+    _plt.hist(sit_rest, bins=8, alpha=.5, label='sit rest')
+    _plt.hist(sit_act, bins=8, alpha=.5, label='sit act')
+    _plt.hist(lazy, bins=8, alpha=.5, label='lazy')
+    _plt.legend(loc='upper left')
+
+samples = list(get_samples())
+jump_rest, jump_act, sit_rest, sit_act, lazy = samples
+for i in range(len(samples)):
+    samples[i] = increase_sample(samples[i], 100, 10**4)
+
+plt.hist(samples[0], bins = 8, alpha = .5)
+plt.hist(jump_rest, bins = 8, alpha = .5)
+plt.show()
