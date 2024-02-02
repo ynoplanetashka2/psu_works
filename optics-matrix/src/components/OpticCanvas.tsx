@@ -23,7 +23,7 @@ export function OpticCanvas({ style = {}, lens }: Props) {
         <Lens
           style={{
             position: "absolute",
-            left: `${position}%`,
+            left: `${position * 100}%`,
             height: "100%",
             zIndex: 2,
           }}
