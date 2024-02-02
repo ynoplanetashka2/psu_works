@@ -1,14 +1,17 @@
 import { nanoid } from "nanoid";
 import { useState } from "react";
 import { LensInfo } from "../optics-matrix-model/LensInfo";
+import { BeamVector } from "../optics-matrix-model/BeamVector";
 
 type OpticAppState = "addLens" | "removeLens" | "configLens";
 
 const DEFAULT_STATE: OpticAppState = "addLens";
+const DEFAULT_BEAM_VECTOR: BeamVector = [0, 0];
 export function useOpticApp() {
   const [appState, setAppState] = useState<OpticAppState>(DEFAULT_STATE);
   const [lenses, setLenses] = useState<ReadonlyArray<LensInfo>>([]);
   const [lensInConfig, setLensInConfig] = useState<string | null>(null);
+  const [beamVector, setBeamVector] = useState<BeamVector>(DEFAULT_BEAM_VECTOR);
 
   const handleMainOpticLineClick = (position: number) => {
     switch (appState) {
@@ -42,5 +45,7 @@ export function useOpticApp() {
     appState,
     setAppState,
     lensInConfig,
+    beamVector,
+    setBeamVector,
   };
 }
