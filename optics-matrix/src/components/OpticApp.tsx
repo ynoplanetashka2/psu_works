@@ -2,6 +2,7 @@ import { useState } from "react";
 import { OpticCanvas } from "./OpticCanvas";
 import { OpticTools } from "./OpticTools";
 import { LensInfo } from "../optics-matrix-model/LensInfo";
+import { nanoid } from "nanoid";
 
 export function OpticApp() {
   const [lenses, setLenses] = useState<ReadonlyArray<LensInfo>>([]);
@@ -27,6 +28,12 @@ export function OpticApp() {
           width: "100%",
         }}
         lens={lenses}
+        onLensClick={(lensId) =>
+          setLenses((lenses) => lenses.filter(({ id }) => id !== lensId))
+        }
+        onLineClick={(position) =>
+          setLenses((lenses) => [...lenses, { position, id: nanoid() }])
+        }
       />
     </div>
   );
