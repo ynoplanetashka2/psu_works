@@ -9,6 +9,7 @@ export function useOpticApp() {
   const [appState, setAppState] = useState<OpticAppState>(DEFAULT_STATE);
   const [lenses, setLenses] = useState<ReadonlyArray<LensInfo>>([]);
   const [lensInConfig, setLensInConfig] = useState<string | null>(null);
+
   const handleMainOpticLineClick = (position: number) => {
     switch (appState) {
       case "addLens":
@@ -40,5 +41,6 @@ export function useOpticApp() {
     lenses,
     appState,
     setAppState,
+    lensInConfig,
   };
 }
