@@ -30,6 +30,7 @@ export function OpticApp() {
         onLensAdd={() => setAppState("addLens")}
         onElementConfig={() => setAppState("configLens")}
         onElementRemove={() => setAppState("removeLens")}
+        opticAppState={appState}
       />
       <OpticsObjectsSettings
         lensInfo={lensInConfig}
