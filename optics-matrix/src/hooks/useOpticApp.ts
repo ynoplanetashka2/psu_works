@@ -16,7 +16,10 @@ export function useOpticApp() {
   const handleMainOpticLineClick = (position: number) => {
     switch (appState) {
       case "addLens":
-        setLenses((lenses) => [...lenses, { position, id: nanoid() }]);
+        setLenses((lenses) => [
+          ...lenses,
+          { position, refractionCoeff: 1, id: nanoid() },
+        ]);
         break;
       case "configLens":
       case "removeLens":
@@ -37,6 +40,17 @@ export function useOpticApp() {
         setLenses((lenses) => lenses.filter(({ id }) => id !== lensId));
     }
   };
+  function updateLensInConfig(lensInfo: LensInfo) {
+    const lensInConfigIndex = lenses.findIndex(({ id }) => id === lensInConfig);
+    setLenses((lenses) =>
+      lenses.map((lens, index) => {
+        if (index !== lensInConfigIndex) {
+          return lens;
+        }
+        return lensInfo;
+      })
+    );
+  }
 
   return {
     handleLensClick,
@@ -44,7 +58,8 @@ export function useOpticApp() {
     lenses,
     appState,
     setAppState,
-    lensInConfig,
+    lensInConfig: lenses.find(({ id }) => id === lensInConfig) ?? null,
+    updateLensInConfig: updateLensInConfig,
     beamVector,
     setBeamVector,
   };

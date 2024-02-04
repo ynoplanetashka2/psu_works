@@ -11,7 +11,8 @@ export function OpticApp() {
     lenses,
     setAppState,
     appState,
-    beamVector
+    beamVector,
+    updateLensInConfig,
   } = useOpticApp();
   return (
     <div
@@ -29,7 +30,18 @@ export function OpticApp() {
         onElementConfig={() => setAppState("configLens")}
         onElementRemove={() => setAppState("removeLens")}
       />
-      <OpticsObjectsSettings />
+      <OpticsObjectsSettings
+        lensInfo={lensInConfig}
+        onUpdateLensInfo={(lensInfo) => {
+          if (lensInConfig === null) {
+            return;
+          }
+          updateLensInConfig({
+            ...lensInConfig,
+            ...lensInfo,
+          });
+        }}
+      />
       <OpticCanvas
         style={{
           height: "100px",

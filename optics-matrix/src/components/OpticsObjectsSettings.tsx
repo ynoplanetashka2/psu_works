@@ -1,15 +1,28 @@
 import { BeamVectorSettings } from "./BeamVectorSettings";
 import { LensSettings } from "./LensSettings";
 
-type Props = {
-  style?: React.HTMLAttributes<HTMLDivElement>["style"];
+type LensInfo = {
+  position: number;
+  refractionCoeff: number;
 };
 
-export function OpticsObjectsSettings({ style = {} }: Props) {
+type Props = {
+  style?: React.HTMLAttributes<HTMLDivElement>["style"];
+  lensInfo: LensInfo | null;
+  onUpdateLensInfo: (_: LensInfo) => void;
+};
+
+export function OpticsObjectsSettings({
+  style = {},
+  lensInfo,
+  onUpdateLensInfo,
+}: Props) {
   return (
     <div style={style}>
       <BeamVectorSettings />
-      <LensSettings />
+      {lensInfo && (
+        <LensSettings lensInfo={lensInfo} onUpdateLensInfo={onUpdateLensInfo} />
+      )}
     </div>
   );
 }
