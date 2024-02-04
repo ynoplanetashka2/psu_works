@@ -12,6 +12,7 @@ export function OpticApp() {
     setAppState,
     appState,
     beamVector,
+    setBeamVector,
     updateLensInConfig,
   } = useOpticApp();
   return (
@@ -41,6 +42,8 @@ export function OpticApp() {
             ...lensInfo,
           });
         }}
+        beamVector={beamVector}
+        onUpdateBeamVector={(newBeamVector) => setBeamVector(newBeamVector)}
       />
       <OpticCanvas
         style={{
