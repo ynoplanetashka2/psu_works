@@ -19,7 +19,7 @@ export function OpticApp() {
     <div
       style={{
         width: "980px",
-        height: "400px",
+        height: "600px",
         background: "grey",
       }}
     >
@@ -47,7 +47,7 @@ export function OpticApp() {
       />
       <OpticCanvas
         style={{
-          height: "100px",
+          height: "400px",
           width: "100%",
         }}
         lenses={lenses}
