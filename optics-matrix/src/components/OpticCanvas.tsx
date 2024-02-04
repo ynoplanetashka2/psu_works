@@ -1,4 +1,5 @@
 import { BeamVector } from "../optics-matrix-model/BeamVector";
+import { BeamPath } from "./BeamPath";
 import { Lens } from "./Lens";
 import { MainOpticLine } from "./MainOpticLine";
 
@@ -61,6 +62,10 @@ export function OpticCanvas({
         }}
         onClick={(ratio) => onLineClick && onLineClick(ratio)}
       />
+      <BeamPath style={{
+        width: '100%',
+        height: '100%',
+      }} />
     </div>
   );
 }
