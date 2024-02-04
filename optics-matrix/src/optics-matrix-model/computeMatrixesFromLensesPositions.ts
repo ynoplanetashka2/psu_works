@@ -4,6 +4,7 @@ import { computeTranslateMatrix } from "./predefined-matrix/computeTranslateMatr
 
 type LenseInfo = {
   position: number;
+  refractionCoeff: number;
   radiusOfCurvature: number;
 };
 type MatrixInfo = {
@@ -35,8 +36,7 @@ export function computeMatrixesFromLensesPositions(
       const translateMatrix = computeTranslateMatrix(distance);
       const refractionMatrix = computeThinLensRefractionMatrix(
         lens.radiusOfCurvature,
-        // @TODO: remove hardcoded refraction index
-        1.1
+        lens.refractionCoeff,
       );
       return [
         {
