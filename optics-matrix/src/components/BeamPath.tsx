@@ -75,7 +75,7 @@ export function BeamPath({ style = {}, lenses, beamVector }: Props) {
       <path
         d={pathLine}
         style={{
-          stroke: "white",
+          stroke: "red",
           strokeWidth: "2px",
           fill: "none",
         }}
