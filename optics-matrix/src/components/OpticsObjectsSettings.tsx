@@ -5,6 +5,7 @@ import { LensSettings } from "./LensSettings";
 type LensInfo = {
   position: number;
   refractionCoeff: number;
+  radiusOfCurvature: number;
 };
 
 type Props = {
