@@ -51,7 +51,7 @@ export function computeMatrixesFromLensesPositions(
     }),
     {
       matrix: computeTranslateMatrix(
-        lenses[lenses.length - 1].position - endPosition
+        endPosition - lenses[lenses.length - 1].position
       ),
       matrixType: "translateMatrix",
     },
