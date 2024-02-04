@@ -18,7 +18,7 @@ export function useOpticApp() {
       case "addLens":
         setLenses((lenses) => [
           ...lenses,
-          { position, refractionCoeff: 1, id: nanoid() },
+          { position, refractionCoeff: 1, radiusOfCurvature: 1, id: nanoid() },
         ]);
         break;
       case "configLens":

@@ -1,6 +1,6 @@
-import { MatrixType } from "./MatrixType";
-import { computeThinLensRefractionMatrix } from "./computeThinLensRefractionMatrix";
-import { computeTranslateMatrix } from "./computeTranslateMatrix";
+import { MatrixType } from "./predefined-matrix/MatrixType";
+import { computeThinLensRefractionMatrix } from "./predefined-matrix/computeThinLensRefractionMatrix";
+import { computeTranslateMatrix } from "./predefined-matrix/computeTranslateMatrix";
 
 type LenseInfo = {
   position: number;

@@ -5,6 +5,8 @@ import { MainOpticLine } from "./MainOpticLine";
 
 type LensInfo = {
   position: number;
+  refractionCoeff: number;
+  radiusOfCurvature: number;
   id: string;
 };
 type Props = {
@@ -18,10 +20,11 @@ type Props = {
 export function OpticCanvas({
   style = {},
   lenses,
-  beamVector: [beamVectorHeight, beamVectorAngle],
+  beamVector,
   onLensClick,
   onLineClick,
 }: Props) {
+  const [beamVectorHeight] = beamVector;
   return (
     <div
       style={{
@@ -30,15 +33,17 @@ export function OpticCanvas({
         ...style,
       }}
     >
-      <div style={{
-        position: 'absolute',
-        bottom: `calc(${(beamVectorHeight + 1) * 50}% - 30px/2)`,
-        left: '0',
-        width: '30px',
-        height: '30px',
-        background: 'red',
-        zIndex: 2,
-      }}/>
+      <div
+        style={{
+          position: "absolute",
+          bottom: `calc(${(beamVectorHeight + 1) * 50}% - 30px/2)`,
+          left: "0",
+          width: "30px",
+          height: "30px",
+          background: "red",
+          zIndex: 2,
+        }}
+      />
       {lenses.map(({ position, id }) => (
         <Lens
           style={{
@@ -62,10 +67,15 @@ export function OpticCanvas({
         }}
         onClick={(ratio) => onLineClick && onLineClick(ratio)}
       />
-      <BeamPath style={{
-        width: '100%',
-        height: '100%',
-      }} />
+      <BeamPath
+        style={{
+          width: "100%",
+          height: "100%",
+          position: 'absolute',
+        }}
+        lenses={lenses}
+        beamVector={beamVector}
+      />
     </div>
   );
 }
