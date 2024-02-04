@@ -5,6 +5,12 @@ import { BeamVector } from "../optics-matrix-model/BeamVector";
 
 export type OpticAppState = "addLens" | "removeLens" | "configLens";
 
+function lensesSort(
+  { position: position1 }: LensInfo,
+  { position: position2 }: LensInfo
+) {
+  return position1 - position2;
+}
 const DEFAULT_STATE: OpticAppState = "addLens";
 const DEFAULT_BEAM_VECTOR: BeamVector = [0, 0];
 export function useOpticApp() {
@@ -16,10 +22,17 @@ export function useOpticApp() {
   const handleMainOpticLineClick = (position: number) => {
     switch (appState) {
       case "addLens":
-        setLenses((lenses) => [
-          ...lenses,
-          { position, refractionCoeff: 1, radiusOfCurvature: 1, id: nanoid() },
-        ]);
+        setLenses((lenses) =>
+          [
+            ...lenses,
+            {
+              position,
+              refractionCoeff: 1,
+              radiusOfCurvature: 1,
+              id: nanoid(),
+            },
+          ].sort(lensesSort)
+        );
         break;
       case "configLens":
       case "removeLens":
@@ -43,12 +56,14 @@ export function useOpticApp() {
   function updateLensInConfig(lensInfo: LensInfo) {
     const lensInConfigIndex = lenses.findIndex(({ id }) => id === lensInConfig);
     setLenses((lenses) =>
-      lenses.map((lens, index) => {
-        if (index !== lensInConfigIndex) {
-          return lens;
-        }
-        return lensInfo;
-      })
+      lenses
+        .map((lens, index) => {
+          if (index !== lensInConfigIndex) {
+            return lens;
+          }
+          return lensInfo;
+        })
+        .sort(lensesSort)
     );
   }
 
