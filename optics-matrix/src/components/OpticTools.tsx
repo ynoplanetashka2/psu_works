@@ -32,6 +32,7 @@ export function OpticTools({
         style={{
           marginRight: "10px",
           background: opticAppState === "addLens" ? "yellow" : "green",
+          cursor: "pointer",
         }}
         onClick={onLensAdd}
       >
@@ -41,6 +42,7 @@ export function OpticTools({
         style={{
           marginRight: "10px",
           background: opticAppState === "removeLens" ? "yellow" : "green",
+          cursor: "pointer",
         }}
         onClick={onElementRemove}
       >
@@ -49,6 +51,7 @@ export function OpticTools({
       <OpticToolsItem
         style={{
           background: opticAppState === "configLens" ? "yellow" : "green",
+          cursor: "pointer",
         }}
         onClick={onElementConfig}
       >
