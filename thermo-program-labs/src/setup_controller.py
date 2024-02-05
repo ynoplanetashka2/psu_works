@@ -13,6 +13,7 @@ def setup_controller(**kwargs):
     resources_list = rm.list_resources()
     # print(resources_list)
     vm_name = None
+    # print(resources_list)
     for resource_name in resources_list:
         if resource_name.startswith('ASRL'):
             vm_name = resource_name
@@ -24,13 +25,17 @@ def setup_controller(**kwargs):
     controller = rm.open_resource(vm_name, baud_rate=115200)
 
     #configuring controller
+    # controller.read_termination = ''
     controller.read_termination = '\r\n'
-    controller.write_termination = '\r\n'
+    controller.write_termination = ''
+    # controller.write_termination = '\r\n'
 
     def write_command(command_code):
-        msg_without_control_sum = f':{controller_address}{command_code}'
+        COMMAND_PREFIX = ':'
+        WRITE_TERMINATION = '\r\n'
+        msg_without_control_sum = f'{controller_address}{command_code}'
         control_sum = compute_control_sum(msg_without_control_sum)
-        msg = f'{msg_without_control_sum}{control_sum}'
+        msg = f'{COMMAND_PREFIX}{msg_without_control_sum}{control_sum}{WRITE_TERMINATION}'
         print('msg: ', msg)
         return controller.write(msg)
 
