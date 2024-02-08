@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import sympy as sp
+import scipy as sci
 
 def main():
     t, myu = sp.symbols('t, myu', real=True)
