@@ -12,6 +12,7 @@ def init_G():
         G.add_edge(i, (i + shift) % 7)
         G.add_edge((i + shift) % 7, (i + 2 * shift) % 7)
     return G
+
 def main():
     G = init_G()
     is_planar, counterexample = nx.check_planarity(G, True)
