@@ -57,15 +57,15 @@ export function BeamPath({ style = {}, lenses, beamVector }: Props) {
       return "";
     }
     const initialPoint = `M${beamPositions[0].x * width} ${
-      beamPositions[0].y * height + height / 2
+      - beamPositions[0].y * height / 2 + height / 2
     }`;
     const midPath = beamPositions
       .slice(1, -1)
-      .map(({ x, y }) => `L${x * width} ${y * height + height / 2}`)
+      .map(({ x, y }) => `L${x * width} ${y * height / 2 + height / 2}`)
       .join(" ");
     const lastPosition = beamPositions[beamPositions.length - 1];
     const endPoint = `L${lastPosition.x * width} ${
-      lastPosition.y * height + height / 2
+      lastPosition.y * height / 2 + height / 2
     }`;
     return `${initialPoint} ${midPath} ${endPoint}`;
   }, [width, height, beamPositions]);
