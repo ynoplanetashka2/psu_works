@@ -11,6 +11,8 @@ def hex2(char):
     return res
 
 def main():
+    setup_window_result = setup_window()
+    insert_value = setup_window_result['insert_value']
     # for i in range(256):
     while True:
         address = 1
@@ -22,6 +24,7 @@ def main():
         response = query(command)
         print(type(response))
         print(response)
+        insert_value(response)
         time.sleep(1)
 
 if __name__ == '__main__':
