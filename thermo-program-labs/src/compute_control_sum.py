@@ -1,8 +1,5 @@
 import numpy as np
 import warnings
-import binascii
-# def to_hex(num):
-#     return str('%#4x' % (0xffffffff & num))[]
 
 def hex2(n):
     return hex(np.ubyte(n))[2:].upper()
@@ -33,10 +30,3 @@ def LRC(line):
 
 def compute_control_sum(line):
     return hex2(LRC(line))
-
-# command = '06030803AC03B603A203E8'
-# command = '070601171900'
-# control_sum = compute_control_sum(command)
-# print(len(command))
-# print(control_sum)
-# exit()

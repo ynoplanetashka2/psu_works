@@ -6,7 +6,6 @@ def setup_window(**kwargs):
     lbl = None
 
     def timer_tick():
-        # entry.insert(tk.END, content + ' hello world')
         res = main()
         lbl.config(text=res)
         window.after(300, timer_tick)
@@ -19,6 +18,5 @@ def setup_window(**kwargs):
     lbl = tk.Label()
     btn.pack()
     lbl.pack()
-    # window.after(0, lambda: main(insert_value=insert_value))
     window.after(0, timer_tick)
     window.mainloop()

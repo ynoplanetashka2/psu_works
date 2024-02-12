@@ -1,9 +1,7 @@
 from binascii import unhexlify
 import numpy as np
-import time
 import pyvisa as pyv
 from compute_control_sum import compute_control_sum
-from random import random as rand
 
 def _throw(err):
     raise Exception(err)
@@ -13,9 +11,7 @@ def setup_controller(**kwargs):
     controller_address = kwargs['address'] if 'address' in kwargs else '01'
     rm = pyv.ResourceManager()
     resources_list = rm.list_resources()
-    # print(resources_list)
     vm_name = None
-    # print(resources_list)
     for resource_name in resources_list:
         if resource_name.startswith('ASRL'):
             vm_name = resource_name

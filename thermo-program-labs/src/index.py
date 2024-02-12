@@ -11,7 +11,6 @@ def hex2(char):
     return res
 
 def main():
-    # for i in range(256):
     address = 2
     setup_controller_result = setup_controller(address=hex2(address))
     query = setup_controller_result['query']
