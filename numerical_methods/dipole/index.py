@@ -1,40 +1,33 @@
 import matplotlib.pyplot as plt
+from compute_field import compute_field
 import numpy as np
 from matplotlib.animation import FuncAnimation
 
 def main():
     fig, ax = plt.subplots()
-    # ax.set_frame_on(False)
-    (line,) = ax.plot([], [], 'ro')
+    # (line,) = ax.plot([], [], 'ro')
     x, y = np.meshgrid(np.linspace(0, 100, 100), np.linspace(0, 100, 100))
-    # z = np.ones((100, 100))
     z = np.sin(x) * np.sin(y)
-    # print(x.shape, y.shape, z.shape)
     mesh = ax.pcolormesh(x, y, z)
 
     def get_frame(angle):
-        x_data = [np.sin(angle), np.sin(angle + np.pi)]
-        y_data = [np.cos(angle), np.cos(angle + np.pi)]
-        delta_1 = np.array([np.sin(angle), np.cos(angle)])
-        delta_2 = np.array([np.sin(angle + np.pi), np.cos(angle + np.pi)])
-        line.set_data(x_data, y_data)
-        x_grid, y_grid = np.meshgrid(np.linspace(0, 10, 100), np.linspace(0, 10, 100))
-        dist_1 = np.sqrt((x_grid - delta_1[0])**2 + (y_grid - delta_1[1])**2)
-        dist_2 = np.sqrt((x_grid - delta_2[0])**2 + (y_grid - delta_2[1])**2)
-        # field_1 = (angle - dist_1)/
-        field = np.sin(angle * dist_1)
-        mesh.set_array(field.ravel())
-        # mesh = ax.pcolormesh(x_grid, y_grid, temp)
-        # print(dir(type(mesh)))
+        shift = np.array([20, 20])
+        charge_1 = np.array([np.sin(angle), np.cos(angle)]) + shift
+        charge_2 = np.array([np.sin(angle + np.pi), np.cos(angle + np.pi)]) + shift
+        # line.set_data(*zip(charge_1, charge_2))
+        fields = []
+        for q, position in zip((-1, 1), (charge_1, charge_2)):
+            field = compute_field(q, position[0], position[1])
+            fields.append(field)
+        total_field = fields[0] + fields[1]
+        print(fields, total_field.max())
+        print(total_field.shape)
+        mesh.set_array(total_field.ravel())
 
     def init():
-        line.set_data([], [])
+        # line.set_data([], [])
         ax.set_xlim(-2, 100)
         ax.set_ylim(-2, 100)
-        # x_grid = np.arange(100)
-        # y_grid = np.arange(100)
-        # temp = np.random.random(x_grid.size * y_grid.size).reshape((x_grid.size, y_grid.size))
-        # mesh.set_array(temp.ravel())
 
     _anim = FuncAnimation(
         fig,
