@@ -27,17 +27,22 @@ def setup_controller(**kwargs):
     #configuring controller
     # controller.read_termination = ''
     controller.read_termination = '\r\n'
-    controller.write_termination = ''
-    # controller.write_termination = '\r\n'
+    # controller.write_termination = ''
+    controller.timeout = 300
+    controller.write_termination = '\r\n'
 
-    def write_command(command_code):
+    def query(command_code):
         COMMAND_PREFIX = ':'
-        WRITE_TERMINATION = '\r\n'
+        # WRITE_TERMINATION = '\r\n'
         msg_without_control_sum = f'{controller_address}{command_code}'
         control_sum = compute_control_sum(msg_without_control_sum)
-        msg = f'{COMMAND_PREFIX}{msg_without_control_sum}{control_sum}{WRITE_TERMINATION}'
+        # msg = f'{COMMAND_PREFIX}{msg_without_control_sum}{control_sum}{WRITE_TERMINATION}'
+        msg = f'{COMMAND_PREFIX}{msg_without_control_sum}{control_sum}'
         print('msg: ', msg)
-        return controller.write(msg)
+        res = controller.query(msg)
+        if res[0:4] != msg[0:4]:
+            raise Exception(f'wrong response: {res} for query {msg}')
+        return res
 
     # multimeter.write('CONF:VOLT:AC 10, 0.001')
     # time.sleep(0.1)
@@ -48,5 +53,5 @@ def setup_controller(**kwargs):
 
     return {
         'controller': controller,
-        'write_command': write_command,
+        'query': query,
     }
