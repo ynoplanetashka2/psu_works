@@ -35,11 +35,10 @@ def setup_controller(**kwargs):
         control_sum = compute_control_sum(msg_without_control_sum)
         msg = f'{COMMAND_PREFIX}{msg_without_control_sum}{control_sum}'
         print('msg: ', msg)
-        controller.write(msg)
         res = None
         try:
             while True:
-                res = controller.read(msg)
+                res = controller.query(msg)
                 if res[0:4] != msg[0:4]:
                     continue
                 break
