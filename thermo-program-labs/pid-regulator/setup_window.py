@@ -1,4 +1,5 @@
 import tkinter as tk
+from plot import plot
 
 TIMER_INTERVAL = 300
 TAU_0 = 50
@@ -27,8 +28,10 @@ def setup_window():
         res = iteration(T_value, TIMER_INTERVAL / 1000, p_relative)
         T_value = res
         lbl.config(text=res)
+        plot(window)
         window.after(TIMER_INTERVAL, timer_tick)
     lbl = tk.Label()
     lbl.pack()
     window.after(0, timer_tick)
+    window.geometry("500x500")
     window.mainloop()
