@@ -1,4 +1,5 @@
 from binascii import unhexlify
+import numpy as np
 import time
 import pyvisa as pyv
 from compute_control_sum import compute_control_sum
@@ -48,7 +49,8 @@ def setup_controller(**kwargs):
             return None
         # return res[4:]
         temperature = res[7:7+4]
-        result = int(unhexlify(temperature))
+        print(f'bare response {res}: temperature: {temperature}')
+        result = np.short(int.from_bytes(unhexlify(temperature), "big")) / 100
         return result
 
     return {
