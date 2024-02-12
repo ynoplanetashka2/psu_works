@@ -1,4 +1,3 @@
-# 38В1
 import time
 from setup_window import setup_window
 from setup_controller import setup_controller
