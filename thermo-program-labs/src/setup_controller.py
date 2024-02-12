@@ -42,7 +42,9 @@ def setup_controller(**kwargs):
         res = controller.query(msg)
         if res[0:4] != msg[0:4]:
             raise Exception(f'wrong response: {res} for query {msg}')
-        return res
+        controller.clear()
+        print(controller.read_bytes(10))
+        return res[4:]
 
     # multimeter.write('CONF:VOLT:AC 10, 0.001')
     # time.sleep(0.1)
