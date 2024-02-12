@@ -1,1 +1,1 @@
-installation-guide filter=lfs diff=lfs merge=lfs -text
+installation-guide/**/* filter=lfs diff=lfs merge=lfs -text
