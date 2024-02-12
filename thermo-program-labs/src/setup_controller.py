@@ -1,3 +1,4 @@
+from binascii import unhexlify
 import time
 import pyvisa as pyv
 from compute_control_sum import compute_control_sum
@@ -45,7 +46,10 @@ def setup_controller(**kwargs):
             controller.clear()
         except pyv.VisaIOError:
             return None
-        return res[4:]
+        # return res[4:]
+        temperature = res[7:7+4]
+        result = int(unhexlify(temperature))
+        return result
 
     return {
         'controller': controller,

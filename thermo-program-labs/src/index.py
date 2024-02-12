@@ -11,21 +11,19 @@ def hex2(char):
     return res
 
 def main():
-    setup_window_result = setup_window()
-    insert_value = setup_window_result['insert_value']
     # for i in range(256):
-    while True:
-        address = 1
-        setup_controller_result = setup_controller(address=hex2(address))
-        controller = setup_controller_result['controller']
-        query = setup_controller_result['query']
-        controller_net_id = '06'
+    address = 1
+    setup_controller_result = setup_controller(address=hex2(address))
+    query = setup_controller_result['query']
+    def insert_value(**kwargs):
+        insert_value = kwargs['insert_value']
         command='0300000001'
         response = query(command)
         print(type(response))
         print(response)
         insert_value(response)
         time.sleep(1)
+    setup_window(main=insert_value)
 
 if __name__ == '__main__':
     main()

@@ -1,23 +1,21 @@
 import tkinter as tk
 
 def setup_window(**kwargs):
-    entry = None
+    main = kwargs['main']
     window = tk.Tk()
+    lbl = None
     def insert_value(value):
-        content = entry.get()
         # entry.insert(tk.END, content + ' hello world')
-        entry.insert(0, value)
+        lbl.config(text=value)
 
     btn = tk.Button(
         text='trigger',
         width=25,
         height=5,
+        command=lambda: main(insert_value=insert_value)
     )
-    entry = tk.Entry()
+    lbl = tk.Label()
     btn.pack()
-    entry.pack()
+    lbl.pack()
+    # window.after(0, lambda: main(insert_value=insert_value))
     window.mainloop()
-
-    return {
-        'insert_value': insert_value,
-    }
