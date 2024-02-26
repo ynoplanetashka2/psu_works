@@ -21,7 +21,7 @@ def setup_window(compute_p):
 
     def timer_tick():
         nonlocal T_value
-        p_relative = compute_p(T_value)
+        p_relative = compute_p(T_all_values)
         res = iteration(T_value, TIMER_INTERVAL / 1000, p_relative)
         T_value = res
         T_all_values.append(T_value)
