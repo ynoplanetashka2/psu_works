@@ -5,9 +5,9 @@ from plot import plot
 
 # frames interval (in milis)
 TIMER_INTERVAL = 30
-# impulse interval (in milis)
-IMPULSE_INTERVAL = 60
-TAU_0 = 3
+# impulse interval (in timer interval)
+IMPULSE_INTERVAL = 10
+TAU_0 = 15
 TEMP_0 = 100
 
 def iteration(T, delta_t, p_relative):
@@ -23,12 +23,18 @@ def setup_window(compute_p, T_INI):
     lbl = tk.Label()
     checkvar = tk.BooleanVar(value=False)
     checkbox = tk.Checkbutton(text="Power", variable=checkvar)
+    p_relative = 0
 
     def timer_tick():
-        nonlocal T_value
-        p_relative = compute_p(T_all_values)
+        nonlocal T_value, p_relative
+        if (len(T_all_values) - 1) % IMPULSE_INTERVAL == 0:
+            p_relative = compute_p(T_all_values[::IMPULSE_INTERVAL])
         checkvar.set(p_relative > 0)
-        res = iteration(T_value, TIMER_INTERVAL / 1000, p_relative)
+        if p_relative > 0:
+            res = iteration(T_value, TIMER_INTERVAL / 1000, 1)
+        else:
+            res = iteration(T_value, TIMER_INTERVAL / 1000, 0)
+        p_relative -= 1 / IMPULSE_INTERVAL
         T_value = res
         T_all_values.append(T_value)
         lbl.config(text=res)
