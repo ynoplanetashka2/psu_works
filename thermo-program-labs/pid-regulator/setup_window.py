@@ -20,10 +20,14 @@ def setup_window(compute_p, T_INI):
     T_value = T_INI
     T_all_values = [T_value]
     (ax, canvas) = plot(window, T_all_values)
+    lbl = tk.Label()
+    checkvar = tk.BooleanVar(value=False)
+    checkbox = tk.Checkbutton(text="Power", variable=checkvar)
 
     def timer_tick():
         nonlocal T_value
         p_relative = compute_p(T_all_values)
+        checkvar.set(p_relative > 0)
         res = iteration(T_value, TIMER_INTERVAL / 1000, p_relative)
         T_value = res
         T_all_values.append(T_value)
@@ -34,8 +38,8 @@ def setup_window(compute_p, T_INI):
         canvas.draw()
         window.update()
         window.after(TIMER_INTERVAL, timer_tick)
-    lbl = tk.Label()
     lbl.pack()
+    checkbox.pack()
     window.after(0, timer_tick)
-    window.geometry("500x500")
+    window.geometry("500x600")
     window.mainloop()
