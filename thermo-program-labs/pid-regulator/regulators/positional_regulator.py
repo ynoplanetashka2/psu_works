@@ -1,4 +1,4 @@
-def stupid_regulator(T_values):
+def positional_regulator(T_values):
     T = T_values[-1]
     HE = 0.0
     T_SP = 5

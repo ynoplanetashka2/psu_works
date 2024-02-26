@@ -1,5 +1,5 @@
 from setup_window import setup_window
-from regulators.stupid_regulator import stupid_regulator
+from regulators.positional_regulator import positional_regulator
 from regulators.proportional_regulator import proportional_regulator
 from regulators.pi_regulator import pi_regulator
 
