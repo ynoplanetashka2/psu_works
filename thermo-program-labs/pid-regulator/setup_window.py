@@ -3,8 +3,11 @@ import tkinter as tk
 import numpy as np
 from plot import plot
 
+# frames interval (in milis)
 TIMER_INTERVAL = 30
-TAU_0 = 30
+# impulse interval (in milis)
+IMPULSE_INTERVAL = 60
+TAU_0 = 3
 TEMP_0 = 100
 
 def iteration(T, delta_t, p_relative):
@@ -27,7 +30,7 @@ def setup_window(compute_p, T_INI):
         lbl.config(text=res)
         domain = np.arange(len(T_all_values)) * TIMER_INTERVAL
         ax.plot(domain, T_all_values, color='blue')
-        ax.set_xlim((max(0, domain[-1] - 10 * 1000), domain[-1]))
+        ax.set_xlim((max(0, domain[-1] - 5 * 1_000), domain[-1]))
         canvas.draw()
         window.update()
         window.after(TIMER_INTERVAL, timer_tick)
