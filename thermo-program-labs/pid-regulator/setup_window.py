@@ -6,13 +6,12 @@ from plot import plot
 TIMER_INTERVAL = 30
 TAU_0 = 30
 TEMP_0 = 100
-T_INI = 0
 
 def iteration(T, delta_t, p_relative):
     delta_T = (p_relative * TEMP_0 / TAU_0 - T / TAU_0) * delta_t
     return T + delta_T
 
-def setup_window(compute_p):
+def setup_window(compute_p, T_INI):
     window = tk.Tk()
     lbl = None
     T_value = T_INI
