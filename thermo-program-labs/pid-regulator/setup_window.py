@@ -30,11 +30,11 @@ def setup_window(compute_p, T_INI):
         if (len(T_all_values) - 1) % IMPULSE_INTERVAL == 0:
             p_relative = compute_p(T_all_values[::IMPULSE_INTERVAL])
         checkvar.set(p_relative > 0)
+        p_relative -= 1 / IMPULSE_INTERVAL
         if p_relative > 0:
             res = iteration(T_value, TIMER_INTERVAL / 1000, 1)
         else:
             res = iteration(T_value, TIMER_INTERVAL / 1000, 0)
-        p_relative -= 1 / IMPULSE_INTERVAL
         T_value = res
         T_all_values.append(T_value)
         lbl.config(text=res)
