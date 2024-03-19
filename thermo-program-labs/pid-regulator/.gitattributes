@@ -1,2 +1,0 @@
-window.png filter=lfs diff=lfs merge=lfs -text
-math-model.png filter=lfs diff=lfs merge=lfs -text
