@@ -36,7 +36,7 @@ export function OpticCanvas({
       <div
         style={{
           position: "absolute",
-          bottom: `calc(${(beamVectorHeight + 1) * 50}% - 30px/2)`,
+          bottom: `calc(${(- beamVectorHeight + 1) * 50}% - 30px/2)`,
           left: "0",
           width: "30px",
           height: "30px",

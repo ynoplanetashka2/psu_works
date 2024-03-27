@@ -57,7 +57,7 @@ export function BeamPath({ style = {}, lenses, beamVector }: Props) {
       return "";
     }
     const initialPoint = `M${beamPositions[0].x * width} ${
-      - beamPositions[0].y * height / 2 + height / 2
+      beamPositions[0].y * height / 2 + height / 2
     }`;
     const midPath = beamPositions
       .slice(1, -1)
