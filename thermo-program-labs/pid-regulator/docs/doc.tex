@@ -1,4 +1,63 @@
-\documentclass{book}
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[english, russian]{babel}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{float}
+% term
+\title{thermo-phys}
+
 \begin{document}
-hello world
+
+\section{Описание программы регулятор}
+\subsection{мат. модель}
+
+Исходная задача может быть описана моделью:
+\begin{equation}
+    \frac{dT}{dt} = P \cdot \frac{T_0}{\tau_0} - \frac{T}{\tau_0}
+\end{equation}
+
+У нее можно ввести параметры:
+\begin{enumerate}
+    \item характерное время остывания (в программе константа TAU\_0)
+    \item максимальная температура (в программе TEMP\_0) 
+\end{enumerate}
+
+В программе задача решается численно, используется численная модель:
+
+\begin{align}
+    T_{i+1} &= T_i + \Delta T \\
+    \Delta T &= P \cdot \frac{T_0}{\tau_0} \cdot \Delta t - \frac{T}{\tau_0} \cdot \Delta t
+\end{align}
+
+\subsection{файлы}
+
+\subsubsection{plot.py}
+plot.py - файл с функцией plot
+
+функция plot прикрепляет график к окну приложения
+
+\subsubsection{setup\_window.py}
+setup\_window.py - файл с функцией setup\_window
+
+функция setup\_window инициализирует окно и производит расчет показаний виртуального прибора
+
+\subsubsection{регуляторы}
+
+
+\subsection{Работа программы}
+для начала работы необходимо выполнить консольную команду 
+
+
+\begin{lstlisting}
+py index.py
+\end{lstlisting}
+
+находясь в папке проекта
+
+в результате должно появится окошко на котором будет рисоваться график в реальном времени. снизу от графика написано текущее значение температуры и чекбокс выступающий в роли индикатора включения/выключения мощности.
+
+\includegraphics{images/window.png}
+
 \end{document}
+
