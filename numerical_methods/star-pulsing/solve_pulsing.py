@@ -12,6 +12,8 @@ def solve_pulsing(**kwargs):
         return (eq(r, r_prime), r_prime)
 
     domain = np.linspace(0, up_to, steps_count)
-    solns = odeint(equation, (2, 1), domain)
+    solns = odeint(equation, (1.01, 0), domain)
+    print(solns.shape)
     x_prime_soln, x_soln = solns.T
+    print(x_prime_soln.shape, x_soln.shape)
     return {"domain": domain, "x_soln": x_soln, "x_prime_soln": x_prime_soln}

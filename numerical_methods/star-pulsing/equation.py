@@ -3,6 +3,7 @@ H_c = 0.984
 
 def star_pulsing_for_n(n):
     def star_pulsing_equation(r, r_prime):
+        # (r, r_prime) = (r_prime, r)
         if r_prime >= 0:
             return H_e / r**n - 1 / r**2
         else:
