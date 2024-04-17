@@ -22,7 +22,13 @@ def main() -> None:
     for Z in Z_domain
   ])
   ax = sns.heatmap(W_values)
-  ax.contour(W_values, [7, 9])
+  W_values_per_nuclon = np.array([
+    [
+      compute_W(ALPHA, BETA, GAMMA, EPSILON, A, Z) / A if A > Z else np.nan
+      for A in A_domain] 
+    for Z in Z_domain
+  ])
+  ax.contour(W_values_per_nuclon, np.linspace(7, 9, 15))
   plt.show()
 
 if __name__ == "__main__":
