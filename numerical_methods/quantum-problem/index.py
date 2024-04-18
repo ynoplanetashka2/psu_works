@@ -20,13 +20,14 @@ def main():
             )
     S_VALUES = np.array(S_VALUES)
     (S_PLUS_VALUES, S_MINUS_VALUES) = (
-        operation(S_VALUES[0], S_VALUES[1])
+        operation(S_VALUES[0], 1j * S_VALUES[1])
         for operation in (lambda x, y: x + y, lambda x, y: x - y)
     )
-    zeeman = 0
-    for j in range(3):
-        zeeman += S_VALUES[2][j]
-    dipol = 0
+    # zeeman = 0
+    zeeman = S_VALUES.sum(axis=0)
+    # for j in range(3):
+    #     zeeman += S_VALUES[2][j]
+    dipol = np.zeros((8, 8), dtype="complex128")
     for j in range(3):
         for k in range(3):
             if j == k:
@@ -45,11 +46,8 @@ def main():
                 )
             )
     total = zeeman + dipol
-    print(f"{(dipol != 0)=}")
-
     eigh = np.linalg.eigh(total)
-    print(f"{eigh=}")
-    exit()
+    # print(f"{eigh=}")
     (ZERO_ORDER_EIGH_VALS, ZERO_ORDER_EIGH_VECTORS) = eigh
 
     PERTURBATION_ABS = 1e-2
