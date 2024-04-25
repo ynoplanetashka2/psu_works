@@ -3,20 +3,41 @@ import datetime
 import os
 import matplotlib.pyplot as plt
 
-def solve_laplace(field: np.ndarray[float], coordinate_step: float = 1.0) -> np.ndarray[float]:
-  shape = field.shape
-  equations = np.zeros((shape[0], shape[1], shape[0], shape[1]))
-  for i in range(1, shape[0] - 1):
-    for j in range(1, shape[1] - 1):
-      equations[i, j, i + 1, j] = equations[i, j, i - 1, j] = equations[i, j, i, j + 1] = equations[i, j, i, j - 1] = coordinate_step
-      equations[i, j, i, j] = -4 * coordinate_step
-  for i in range(shape[0]):
-    equations[i, 0, i, 0] = equations[i, -1, i, -1] = 1
-  for i in range(shape[1]):
-    equations[0, i, 0, i] = equations[-1, i, -1, i] = 1
+def solve_poissons(field: np.ndarray[float], coordinate_step: float = 1.0, relaxation_parameter: float = 1.0, iterations_limit: int = 100_000, accuracy: float = 1e-1) -> np.ndarray[float]:
+  # shape = field.shape
+  # equations = np.zeros((shape[0], shape[1], shape[0], shape[1]))
+  # for i in range(1, shape[0] - 1):
+  #   for j in range(1, shape[1] - 1):
+  #     equations[i, j, i + 1, j] = equations[i, j, i - 1, j] = equations[i, j, i, j + 1] = equations[i, j, i, j - 1] = coordinate_step
+  #     equations[i, j, i, j] = -4 * coordinate_step
+  # for i in range(shape[0]):
+  #   equations[i, 0, i, 0] = equations[i, -1, i, -1] = 1
+  # for i in range(shape[1]):
+  #   equations[0, i, 0, i] = equations[-1, i, -1, i] = 1
 
-  soln = np.linalg.tensorsolve(equations, field)
-  return soln
+  # soln = np.linalg.tensorsolve(equations, field)
+  # return soln
+  # for i in range(shape[0]):
+  #   soln[i, 0] = field[i, 0]
+  #   soln[i, -1] = field[i, -1]
+  # for i in range(shape[1]):
+  #   soln[0, i] = field[0, i]
+  #   soln[-1, i] = field[-1, i]
+  shape = field.shape
+  soln = np.zeros(shape)
+  next_soln = np.zeros(shape)
+  soln[1, 1] = 1e-6
+  for _ in range(iterations_limit):
+    for i in range(1, shape[0] - 1):
+      for j in range(1, shape[1] - 1):
+        next_soln[i, j] += relaxation_parameter / 4 * (soln[i + 1, j] + soln[i - 1, j] + soln[i, j + 1] + soln[i, j - 1] - coordinate_step**2 * field[i, j]) - relaxation_parameter * soln[i, j]
+    soln = next_soln.copy()
+    if (np.abs(soln - field) < accuracy).all():
+      print("poissons solved")
+      return soln[1:-1, 1:-1]
+    # else:
+    #   print(f"not solved for {_}")
+  raise Exception(f"iterations count exceed limit: {iterations_limit}")
 
 def main() -> None:
   UP_TO_TIME = 10
@@ -26,7 +47,10 @@ def main() -> None:
   TIME_STEP = COORDINATE_STEP**2 / (4 * RE) / 2
   SNAPSHOTS_COUNT = 800
   fi_values = np.zeros((LATTICE_SIZE, LATTICE_SIZE))
+  fi_values[10, 10] = 1e-5
   psi_values = np.zeros((LATTICE_SIZE, LATTICE_SIZE))
+  psi_values = np.zeros((LATTICE_SIZE, LATTICE_SIZE))
+  psi_values[10, 10] = 1e-5
   next_fi_values = np.zeros((LATTICE_SIZE, LATTICE_SIZE))
   next_psi_values = np.zeros((LATTICE_SIZE, LATTICE_SIZE))
   total_iterations_count = int(UP_TO_TIME / TIME_STEP)
@@ -68,12 +92,12 @@ def main() -> None:
         )
     psi_field = np.zeros((next_fi_values.shape[0] + 2, next_fi_values.shape[1] + 2))
     psi_field[1:-1, 1:-1] = -next_fi_values
-    next_psi_values = solve_laplace(psi_field, COORDINATE_STEP)
+    next_psi_values = solve_poissons(psi_field, COORDINATE_STEP)
     for i in range(len(fi_values)):
-      next_fi_values[i, 0] = - 2 * COORDINATE_STEP**2 * next_psi_values[i, 1]
-      next_fi_values[0, i] = - 2 * COORDINATE_STEP**2 * next_psi_values[1, i]
-      next_fi_values[-1, i] = - 2 * COORDINATE_STEP**2 * next_psi_values[-2, i]
-      next_fi_values[i, -1] = - 2 * COORDINATE_STEP**2 * next_psi_values[i, -2] + 2 * COORDINATE_STEP
+      next_fi_values[i, 0] = 2 / COORDINATE_STEP**2 * next_psi_values[i, 1]
+      next_fi_values[0, i] = 2 / COORDINATE_STEP**2 * next_psi_values[1, i]
+      next_fi_values[-1, i] = 2 / COORDINATE_STEP**2 * next_psi_values[-2, i]
+      next_fi_values[i, -1] = 2 / COORDINATE_STEP**2 * next_psi_values[i, -2] - 2 / COORDINATE_STEP
     
     next_fi_values_has_nan = np.isnan(next_fi_values).any()
     next_psi_values_has_nan = np.isnan(next_psi_values).any()
